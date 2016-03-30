@@ -1,0 +1,13 @@
+module diseaseTest1; 
+
+create dictionary disease_dict
+	from file '../../../resources/dictionaries/disease_literals.txt' 
+	with language as 'en'
+	and case insensitive;
+	
+create view DiseaseTest1 as
+	extract dictionary 'disease_dict'
+	on D.text as DiseaseNames
+	from Document D;
+
+output view DiseaseTest1;

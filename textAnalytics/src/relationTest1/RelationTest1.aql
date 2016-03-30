@@ -1,0 +1,60 @@
+module relationTest1; 
+	
+create dictionary medicine_dict
+	from file '../../../resources/dictionaries/WebMD_drugs.txt'
+	with language as 'en'
+	and case insensitive;
+	
+create dictionary disease_dict
+	from file '../../../resources/dictionaries/NELL_diseases.txt'
+	with language as 'en'
+	and case insensitive;
+
+create dictionary symptom_dict
+	from file '../../../resources/dictionaries/WebMD_symptoms.txt'
+	with language as 'en'
+	and case insensitive;
+	
+
+create view Diseases as
+	extract dictionary 'disease_dict'
+		with flags 'IgnoreCase'
+	on D.text as DiseaseName
+	from Document D;	
+	
+create view Symptoms as
+	extract dictionary 'symptom_dict'
+		with flags 'IgnoreCase'
+	on D.text as SymptomName
+	from Document D;
+	
+create view Medicines as
+	extract dictionary 'medicine_dict'
+		with flags 'IgnoreCase'
+	on D.text as MedicineName
+	from Document D;
+	
+create view Disease_Symptom as
+	(extract pattern (<D.DiseaseName>) <Token>{0, 10} (<S.SymptomName>)
+		return group 0 as match and group 1 as disease and group 2 as symptom from Diseases D, Symptoms S
+		consolidate on match using 'LeftToRight')
+	union all
+	(extract pattern (<S.SymptomName>) <Token>{0,10} (<D.DiseaseName>)
+		return group 0 as match and group 2 as disease and group 1 as symptom from Diseases D, Symptoms S
+		consolidate on match using 'LeftToRight');
+
+create view Disease_Medecine as
+	(extract pattern (<D.DiseaseName>) <Token>{0, 10} (<M.MedicineName>)
+		return group 0 as match and group 1 as disease and group 2 as medicine from Diseases D, Medicines M
+		consolidate on match using 'LeftToRight')
+	union all
+	(extract pattern (<M.MedicineName>) <Token>{0, 10} (<D.DiseaseName>)
+		return group 0 as match and group 2 as disease and group 1 as medicine from Diseases D, Medicines M
+		consolidate on match using 'LeftToRight');
+	
+create view Disease_Symptom_Medecine as
+	select D.DiseaseName as disease, D_S.symptom as symptom, D_M.medicine as medicine
+	from Diseases D, Disease_Symptom D_S, Disease_Medecine D_M
+	where Or(Equals(D.DiseaseName, D_S.disease), Equals(D.DiseaseName, D_M.medicine));
+	
+output view Disease_Symptom_Medecine;
