@@ -1,0 +1,37 @@
+module RelationTest2; 
+	
+--create dictionary durgs_dict
+--	from file '../../../resources/dictionaries/WebMD_drugs.txt'
+--	with language as 'en'
+--	and case insensitive;
+	
+create dictionary disease_dict
+	from file '../../../resources/dictionaries/NELL_diseases.txt'
+	with language as 'en'
+	and case insensitive;
+
+create dictionary symptoms_dict
+	from file '../../../resources/dictionaries/WebMD_symptoms.txt'
+	with language as 'en'
+	and case insensitive;
+	
+
+create view Diseases as
+	extract dictionary 'disease_dict'
+	on D.text as DiseaseNames
+	from Document D;	
+	
+create view Symptoms as
+	extract dictionary 'symptoms_dict'
+	on D.text as SymptomNames
+	from Document D;
+	
+create view DiseaseRelateSymptom as
+	(extract pattern <D.DiseaseNames> <Token>{0, 10} <S.SymptomNames>
+		as match from Diseases D, Symptoms S)
+	union all
+	(extract pattern <D.DiseaseNames> <Token>{0,10} <S.SymptomNames>
+		as match from Diseases D, Symptoms S);
+		
+output view DiseaseRelateSymptom;
+ 

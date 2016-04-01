@@ -1,0 +1,8 @@
+module RegexTest; 
+
+create view RegexTest1 as
+extract regex /water/
+on D.text as match
+from Document D;
+
+output view RegexTest1;
