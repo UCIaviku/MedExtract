@@ -1,3 +1,5 @@
+package preprocessor;
+
 public class Token {
 	
 	public static enum Kind {

@@ -1,3 +1,4 @@
+package test;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +35,8 @@ import java.util.Scanner;
 import com.ibm.avatar.algebra.datamodel.TLIter;
 import com.ibm.avatar.algebra.datamodel.Tuple;
 import com.ibm.avatar.algebra.datamodel.TupleList;
+
+import extractor.*;
 
 public class LuceneTest {
     public static void main(String[] args) throws IOException, ParseException {

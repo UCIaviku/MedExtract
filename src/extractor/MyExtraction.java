@@ -1,3 +1,5 @@
+package extractor;
+
 import java.io.File;
 import java.util.Scanner;
 
@@ -27,7 +29,7 @@ public class MyExtraction {
 		}
 		extractor.closeLogFile();
 		
-		System.out.printf("total execution time is %.3f seconds\n", extractor.getExecutionTimeSecs());
+		System.out.printf("total execution time is %.2f seconds\n", extractor.getExecutionTimeSecs());
 		System.out.printf("total number of results is %d seconds\n", extractor.getTotalResultsNum());
 	}
 
