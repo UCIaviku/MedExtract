@@ -1,3 +1,10 @@
+/*
+ * Author: Zuozhi Wang
+ * 
+ * 
+ * Code is adapted from my own project in CS142A Compiler class, Winter 2016 at UCI
+ */
+
 package preprocessor;
 
 import java.io.IOException;
