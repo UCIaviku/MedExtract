@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 import com.ibm.avatar.algebra.datamodel.FieldSetter;
 import com.ibm.avatar.algebra.datamodel.FieldType;
 import com.ibm.avatar.algebra.datamodel.TLIter;
@@ -24,6 +22,8 @@ import com.ibm.avatar.api.CompileAQLParams;
 import com.ibm.avatar.api.ExternalTypeInfo;
 import com.ibm.avatar.api.ExternalTypeInfoFactory;
 import com.ibm.avatar.api.OperatorGraph;
+import com.ibm.avatar.api.exceptions.TextAnalyticsException;
+import com.ibm.avatar.api.tam.ModuleMetadata;
 
 
 public class Extractor {
@@ -45,7 +45,7 @@ public class Extractor {
 	// control if print the time and results
 	private boolean printTimeOn = false;
 	private boolean printExecuteTimeOn = false;
-	private boolean printResult = false;
+	private boolean printResult = true;
 	
 	// load() and execute() will exit if not compileSuccessful
 	// compile is not necessary if running the same module again (it's already compiled)
@@ -103,7 +103,7 @@ public class Extractor {
 			System.err.println("execute: compile failed / not yet compiled");
 			return;
 		}
-		
+			
 		// calls executeModule() and records time
 		long executeStartTime = System.currentTimeMillis();
 		if (printExecuteTimeOn) 
@@ -220,7 +220,7 @@ public class Extractor {
 	}
 	
 
-	private Map<String, TupleList> executeModule(OperatorGraph extractor, String docContent) {		
+	private Map<String, TupleList> executeModule(OperatorGraph extractor, String docContent) {
 		Map<String, TupleList> results = null;
 		
 		try {
@@ -406,6 +406,18 @@ public class Extractor {
 
 	public long getTotalExecutionTime() {
 		return executionTime;
+	}
+	
+	public boolean isCompileSuccessful() {
+		return compileSuccessful;
+	}
+
+	public void setCompileSuccessful(boolean compileSuccessful) {
+		this.compileSuccessful = compileSuccessful;
+	}
+	
+	public OperatorGraph getOperatorGraph() {
+		return operatorGraph;
 	}
 	
 }

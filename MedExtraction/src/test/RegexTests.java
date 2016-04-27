@@ -87,17 +87,17 @@ public class RegexTests {
 	
 	public static void test_DateTimeRegex_FilterOn() {
 		ArrayList<String> aqlModules = new ArrayList<>();
-		aqlModules.add("dateTimeTest");
+		aqlModules.add("DateTime");
 		
 		ArrayList<String> testFiles = new ArrayList<>();
 		testFiles.add("10");
-		testFiles.add("20");
-		testFiles.add("50");
-		testFiles.add("100");
-		testFiles.add("200");
-		testFiles.add("300");
-		testFiles.add("400");
-		testFiles.add("500");
+//		testFiles.add("20");
+//		testFiles.add("50");
+//		testFiles.add("100");
+//		testFiles.add("200");
+//		testFiles.add("300");
+//		testFiles.add("400");
+//		testFiles.add("500");
 		
 		System.out.println("test regex datetime with filtering on");
 		startRegexTests(true, aqlModules, testFiles);

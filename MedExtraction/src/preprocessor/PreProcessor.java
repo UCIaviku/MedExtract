@@ -35,7 +35,7 @@ public class PreProcessor {
 	private String aqlModulePath = "textAnalytics/src/";
 	private String aqlModuleName = "";
 
-	private boolean printRegexDict = false;
+	private boolean printRegexDict = true;
 
 	private long indexTime;
 	private long searchTime;

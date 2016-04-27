@@ -8,7 +8,7 @@ public class MyExtraction {
 	public static void main(String[] args) {
 		String dataFileName = "/Users/georgewang/Documents/Project_Medextract/dataset/abstract_10K.txt";
 		
-		String aqlModule = "RelationTest2";
+		String aqlModule = "DiseaseDict";
 		Extractor extractor = new Extractor(aqlModule);
 		extractor.compile();
 		extractor.load();
@@ -29,7 +29,7 @@ public class MyExtraction {
 		extractor.closeLogFile();
 		
 		System.out.printf("total execution time is %.2f seconds\n", extractor.getExecutionTimeSecs());
-		System.out.printf("total number of results is %d seconds\n", extractor.getTotalResultsNum());
+		System.out.printf("total number of results is %d\n", extractor.getTotalResultsNum());
 	}
 	
 }
